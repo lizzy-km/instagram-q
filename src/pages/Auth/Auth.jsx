@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Outlet } from "react-router-dom";
 
-const Auth = () => {
+const AuthPage = () => {
   return (
-    <div>Auth</div>
-  )
-}
+    <main className=" w-full h-full flex flex-col mx-auto justify-center items-center ">
+      <article className=" mt-[32px] w-[40%] h-[90%] justify-center items-center flex ">
+        <Outlet />
+      </article>
+    </main>
+  );
+};
 
-export default Auth
+export default AuthPage;
