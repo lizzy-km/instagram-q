@@ -17,8 +17,13 @@ import { PiHeartThin } from "react-icons/pi";
 import HeartFill from "../icons/HeartFill";
 import HeartOutLine from "../icons/HeartOutLine";
 import NotificationDrawer from "../components/Notification/Notification";
+import SearchBold from "../icons/SearchBold";
+import SearchOutLine from "../icons/SearchOutLine";
+import SearchDrawer from "../components/Search/SearchDrawer";
 
 const MainLayout = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotiOpen, setIsNotiOpen] = useState(false);
 
   const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
@@ -29,8 +34,10 @@ const MainLayout = () => {
 
   const routeName = pathname.slice(1, pathname.length);
 
+  const isinMessagePage = routeName == "message";
+
   const menuStyle =
-    "  transition-all  flex flex-wrap  h-screen max-1xl:w-[73px]  w-[245px]  border-secondary pt-2 px-[12px] pb-[20px] ";
+    "  transition-all  flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
 
   return (
     <div className="  flex relative w-full h-full  ">
@@ -38,8 +45,7 @@ const MainLayout = () => {
       {!isMobile && (
         <div
           style={{
-            width: isNotiOpen && "73px",
-            borderRight: isNotiOpen ? "none" : "1px solid #dbdbdb",
+            width: isDrawerOpen || isinMessagePage ? 73:245,
           }}
           className={menuStyle}
         >
@@ -49,7 +55,7 @@ const MainLayout = () => {
               to={"/"}
               className=" h-[92px] w-full pt-[25px] px-3 pb-[16px] "
             >
-              {isNotiOpen ? (
+              {isDrawerOpen || isinMessagePage ? (
                 <LogoOutline className={" flex "} />
               ) : !isTablet ? (
                 <InstagramLogo className={"  flex "} />
@@ -75,11 +81,31 @@ const MainLayout = () => {
                   ) : (
                     <HomeOutLineIcon />
                   )}
-                  {!isNotiOpen && (
-                    <p className="  max-1xl:hidden flex ">Home</p>
-                  )}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Home</p>
+                    ))}
                 </div>
               </NavLink>
+
+              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+                <div
+                  onClick={() => {
+                    setIsDrawerOpen(!isSearchOpen);
+                    setIsSearchOpen(!isSearchOpen);
+                    setIsNotiOpen(false);
+                  }}
+                  className={
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                  }
+                >
+                  {isSearchOpen ? <SearchBold /> : <SearchOutLine />}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Search</p>
+                    ))}{" "}
+                </div>
+              </div>
 
               <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
                 <NavLink
@@ -93,9 +119,10 @@ const MainLayout = () => {
                   ) : (
                     <ExplorerOutLine />
                   )}
-                  {!isNotiOpen && (
-                    <p className="  max-1xl:hidden flex ">Explore</p>
-                  )}{" "}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Explore</p>
+                    ))}{" "}
                 </NavLink>
               </div>
               <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
@@ -105,9 +132,10 @@ const MainLayout = () => {
                   }
                 >
                   <AddOutLine />
-                  {!isNotiOpen && (
-                    <p className="  max-1xl:hidden flex ">Add post</p>
-                  )}{" "}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Add post</p>
+                    ))}{" "}
                 </div>
               </div>
 
@@ -119,27 +147,29 @@ const MainLayout = () => {
                   }
                 >
                   {routeName == "message" ? <MessageFill /> : <Message />}
-                  {!isNotiOpen && (
-                    <p className="  max-1xl:hidden flex ">Messages</p>
-                  )}{" "}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Messages</p>
+                    ))}{" "}
                 </NavLink>
               </div>
 
               <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
                 <div
-                  onClick={() => setIsNotiOpen(!isNotiOpen)}
+                  onClick={() => {
+                    setIsDrawerOpen(!isNotiOpen);
+                    setIsNotiOpen(!isNotiOpen);
+                    setIsSearchOpen(false);
+                  }}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
-                  {isNotiOpen ? (
-                    <HeartFill />
-                  ) : (
-                    <HeartOutLine />
-                  )}
-                  {!isNotiOpen && (
-                    <p className="  max-1xl:hidden flex ">Notifications</p>
-                  )}{" "}
+                  {isNotiOpen ? <HeartFill /> : <HeartOutLine />}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Notifications</p>
+                    ))}{" "}
                 </div>
               </div>
 
@@ -156,9 +186,10 @@ const MainLayout = () => {
                     alt=""
                     srcset=""
                   />
-                  {!isNotiOpen && (
-                    <p className="  max-1xl:hidden flex ">Profile</p>
-                  )}{" "}
+                  {isDrawerOpen ||
+                    (!isinMessagePage && (
+                      <p className="  max-1xl:hidden flex ">Profile</p>
+                    ))}{" "}
                 </NavLink>
               </div>
             </div>
@@ -167,21 +198,24 @@ const MainLayout = () => {
       )}
 
       {/* NotiFication  */}
-      <section
-        style={{
-          width: isNotiOpen ? 400 : 0,
-          left: isNotiOpen ? 73 : 245,
-          boxShadow: "4px 0 24px #dbdbdb50 ",
-          visibility: isNotiOpen ? "visible" : "hidden",
-          transition:'0.2s'
-        }}
-        className=" absolute  bottom-0   py-2  rounded-r-2xl border-secondary-gray border-r  bg-white  h-full "
-      >
-     { isNotiOpen &&  <NotificationDrawer />}
-      </section>
+      {
+        <section
+          style={{
+            width: isDrawerOpen ? 400 : 0,
+            left: isDrawerOpen || isinMessagePage ? 73 : 240,
+            boxShadow: "10px 0 24px #dbdbdb50 ",
+            visibility: isDrawerOpen ? "visible" : "hidden",
+            transition: "0.2s",
+          }}
+          className=" z-10 absolute  bottom-0   p-2  rounded-r-2xl border-secondary-gray border-r  bg-white  h-full "
+        >
+          {isNotiOpen && <NotificationDrawer />}
+          {isSearchOpen && <SearchDrawer />}
+        </section>
+      }
 
       {/* Content */}
-      <section className=" flex justify-start items-start w-full max-h-full overflow-y-auto  ">
+      <section className=" flex justify-start items-start w-full max-h-full overflow-y-auto px-5  ">
         <Outlet />
       </section>
 

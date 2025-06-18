@@ -80,7 +80,7 @@ const authRoutes = [
 const ProtectedRoutes = () => {
   const { currentUser } = getAuth(app);
 
-  const router = createBrowserRouter(currentUser ? routeLists : authRoutes);
+  const router = createBrowserRouter(currentUser !==null ? routeLists : authRoutes);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
