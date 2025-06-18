@@ -43,9 +43,14 @@
 }
 
 
-.active {
-    font-weight: 700
+.active[aria-activedescendant] {
+    font-weight: 700;
+    background-color: #dbdbdb !important;
+
+  
 }
+
+
 
 
 

@@ -56,7 +56,7 @@ const MainLayout = () => {
               className=" h-[92px] w-full pt-[25px] px-3 pb-[16px] "
             >
               {isDrawerOpen || isinMessagePage ? (
-                <LogoOutline className={" flex "} />
+                <LogoOutline className={" flex  "} />
               ) : !isTablet ? (
                 <InstagramLogo className={"  flex "} />
               ) : (
@@ -67,6 +67,10 @@ const MainLayout = () => {
             {/* Menu Items */}
             <div className=" menu flex  flex-col w-full h-auto ">
               <NavLink
+              style={{
+                backgroundColor:'transparent'
+              }} 
+              
                 to={"/"}
                 className=" transition-colors w-full min-h-[64PX] rounded-md py-2  "
               >
@@ -109,6 +113,7 @@ const MainLayout = () => {
 
               <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
                 <NavLink
+                aria-activedescendant=""
                   to={"/explore"}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
@@ -141,6 +146,7 @@ const MainLayout = () => {
 
               <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
                 <NavLink
+                aria-activedescendant=""
                   to={"/message"}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
@@ -175,6 +181,7 @@ const MainLayout = () => {
 
               <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
                 <NavLink
+                aria-activedescendant=""
                   to={"/profile"}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
