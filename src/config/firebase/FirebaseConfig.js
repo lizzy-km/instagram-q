@@ -33,5 +33,4 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const provider = new FacebookAuthProvider();
 
-provider.addScope('user_birthday');
 export { app, auth, firestore, storage, analytics,db,provider };

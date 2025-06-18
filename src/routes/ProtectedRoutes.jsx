@@ -62,7 +62,7 @@ const authRoutes = [
     errorElement: <Login />,
     children: [
       {
-        path: "/",
+        path: "/*",
         Component: Login,
       },
       {

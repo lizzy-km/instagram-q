@@ -4,6 +4,7 @@ import "../../css/login.css";
 import FacebookLogo from "../../icons/FacebookLogo";
 import { auth, provider } from "../../config/firebase/FirebaseConfig";
 import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
+import Instagram from "../../components/Logo/Instagram";
 
 const Login = () => {
   const [formVal, setFormVal] = useState({
@@ -13,40 +14,39 @@ const Login = () => {
 
   const [showPass, setShowPass] = useState(false);
 
+  function siginUpWithFacebook() {
+    return signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
 
-function siginUpWithFacebook (){
-return  signInWithPopup(auth, provider)
-  .then((result) => {
-    // The signed-in user info.
-    const user = result.user;
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
 
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    const credential = FacebookAuthProvider.credentialFromResult(result);
-    const accessToken = credential.accessToken;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
 
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = FacebookAuthProvider.credentialFromError(error);
+        console.log(credential, email, errorMessage, errorCode);
 
-    console.log(error)
-
-    // ...
-  });
-}
+        // ...
+      });
+  }
 
   return (
     <div className="   min-w-[350px] w-auto min-h-full flex flex-col gap-[10px] ">
       <div className=" min-w-full min-h-[410px] h-auto border border-t-[#363636] border-[#dbdbdb] py-[10px] justify-start items-center flex gap-[12px] flex-col ">
         <div className=" mt-[36px] ">
-          <i className=" logo "></i>
+          <Instagram width="175px" height="51px" />
         </div>
 
         <div className=" min-w-full  flex flex-col gap-[12px] justify-start items-center ">
@@ -152,7 +152,10 @@ return  signInWithPopup(auth, provider)
 
             {/* Social  */}
             <div className=" w-full justify-center items-center text-[14px] my-2 h-[20px] flex  ">
-              <div onClick={siginUpWithFacebook} className=" flex cursor-pointer ">
+              <div
+                onClick={siginUpWithFacebook}
+                className=" flex cursor-pointer "
+              >
                 <div className=" mr-1  ">
                   <FacebookLogo currentColor="#3579ea" />
                 </div>
