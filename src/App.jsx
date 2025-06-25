@@ -7,9 +7,9 @@ import ProtectedRoutes from './routes/ProtectedRoutes'
 
 function App() {
 
-  const { data, error, isLoading } = useGetUsersStreamQuery('')
+  // const { data, error, isLoading } = useGetUserDataQuery('')
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <section className=' flex flex-col w-screen  h-screen  bg-white  ' >

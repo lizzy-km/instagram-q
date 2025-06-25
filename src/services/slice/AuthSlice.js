@@ -4,25 +4,32 @@ import { setCookie } from "../../utils/CookieFun";
 const initialState = {
   isLogin: 0,
   isUser: false,
+  isLoading: false,
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setIsLogin: ({ isLogin }, { payload }) => {
-      isLogin = payload;
-      setCookie('isLogin',payload)
+    setIsLogin: (state, { payload }) => {
+      state.isLogin = payload;
+      setCookie("isLogin", payload);
     },
-    setIsUser: ({ isUser }, { payload }) => {
-      isUser = payload;
-      setCookie('isUser',payload)
-
+    setIsUser: (state, { payload }) => {
+      state.isUser = payload;
+      setCookie("isUser", payload);
+    },
+    setIsLoading: (state, { payload }) => {
+      state.isLoading = payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsLogin, setIsUser } = authSlice.actions;
+export const {
+  setIsLogin,
+  setIsUser,
+  setIsLoading
+} = authSlice.actions;
 
 export default authSlice.reducer;

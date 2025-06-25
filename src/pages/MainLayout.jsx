@@ -37,7 +37,17 @@ const MainLayout = () => {
   const isinMessagePage = routeName == "message";
 
   const menuStyle =
-    "  transition-all  flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
+    "  transition-all relative justify-between  flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
+
+    function logOut (){
+    auth.signOut().then(() => {
+      // Sign-out successful.
+      window.location.reload(true);
+    }).catch((error) => {
+      // An error happened.
+      console.error("Error signing out: ", error);
+    });
+  }
 
   return (
     <div className="  flex relative w-full h-full  ">
@@ -45,7 +55,7 @@ const MainLayout = () => {
       {!isMobile && (
         <div
           style={{
-            width: isDrawerOpen || isinMessagePage ? 73:245,
+            width: isDrawerOpen || isinMessagePage ? 73 : 245,
           }}
           className={menuStyle}
         >
@@ -65,34 +75,26 @@ const MainLayout = () => {
             </NavLink>
 
             {/* Menu Items */}
-            <div className=" menu flex  flex-col w-full h-auto ">
+            <div className=" menu flex  flex-col w-full h-[64px] ">
               <NavLink
-              style={{
-                backgroundColor:'transparent'
-              }} 
-              
+                aria-activedescendant=""
+                style={{
+                  backgroundColor: "transparent",
+                }}
                 to={"/"}
-                className=" transition-colors w-full min-h-[64PX] rounded-md py-2  "
+                className={
+                  "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                }
               >
-                <div
-                  className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
-                  }
-                >
-                  {/* Icon  */}
-                  {routeName.length < 1 ? (
-                    <HomeFillIcon />
-                  ) : (
-                    <HomeOutLineIcon />
-                  )}
-                  {isDrawerOpen ||
-                    (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Home</p>
-                    ))}
-                </div>
+                {/* Icon  */}
+                {routeName.length < 1 ? <HomeFillIcon /> : <HomeOutLineIcon />}
+                {isDrawerOpen ||
+                  (!isinMessagePage && (
+                    <p className="  max-1xl:hidden flex ">Home</p>
+                  ))}
               </NavLink>
 
-              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+              <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <div
                   onClick={() => {
                     setIsDrawerOpen(!isSearchOpen);
@@ -111,9 +113,9 @@ const MainLayout = () => {
                 </div>
               </div>
 
-              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+              <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <NavLink
-                aria-activedescendant=""
+                  aria-activedescendant=""
                   to={"/explore"}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
@@ -130,7 +132,7 @@ const MainLayout = () => {
                     ))}{" "}
                 </NavLink>
               </div>
-              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+              <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <div
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
@@ -144,9 +146,9 @@ const MainLayout = () => {
                 </div>
               </div>
 
-              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+              <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <NavLink
-                aria-activedescendant=""
+                  aria-activedescendant=""
                   to={"/message"}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
@@ -160,7 +162,7 @@ const MainLayout = () => {
                 </NavLink>
               </div>
 
-              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+              <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <div
                   onClick={() => {
                     setIsDrawerOpen(!isNotiOpen);
@@ -179,9 +181,9 @@ const MainLayout = () => {
                 </div>
               </div>
 
-              <div className=" transition-colors w-full min-h-[64PX] rounded-md py-2  ">
+              <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <NavLink
-                aria-activedescendant=""
+                  aria-activedescendant=""
                   to={"/profile"}
                   className={
                     "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
@@ -189,7 +191,7 @@ const MainLayout = () => {
                 >
                   <img
                     className=" rounded-full w-[28px] h-[28px] "
-                    src={currentUser.photoURL}
+                    src={currentUser?.photoURL}
                     alt=""
                     srcset=""
                   />
@@ -200,6 +202,10 @@ const MainLayout = () => {
                 </NavLink>
               </div>
             </div>
+          </div>
+
+          <div className=" absolute bottom-2 justify-center items-center flex  left-0 w-full h-[200px] ">
+            <div onClick={logOut} className=" w-[80%] cursor-pointer px-2 py-1 rounded-md  bg-secondary-gray text-[#333333] " >Logout</div>
           </div>
         </div>
       )}

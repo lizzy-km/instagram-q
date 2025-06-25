@@ -4,7 +4,7 @@ import { authQueryApi } from "../query/AuthQuery";
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
+    auth: authSlice.reducer,
     [authQueryApi.reducerPath]: authQueryApi.reducer,
 
   },

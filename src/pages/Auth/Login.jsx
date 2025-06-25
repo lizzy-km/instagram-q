@@ -5,6 +5,9 @@ import FacebookLogo from "../../icons/FacebookLogo";
 import { auth, provider } from "../../config/firebase/FirebaseConfig";
 import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import Instagram from "../../components/Logo/Instagram";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../../services/slice/AuthSlice";
+import { setCookie, setTokenToCookie } from "../../utils/CookieFun";
 
 const Login = () => {
   const [formVal, setFormVal] = useState({
@@ -12,11 +15,19 @@ const Login = () => {
     password: "",
   });
 
+  const dispatch = useDispatch();
+
   const [showPass, setShowPass] = useState(false);
 
   function siginUpWithFacebook() {
+    
+    dispatch(setIsLoading(true));
+
     return signInWithPopup(auth, provider)
       .then((result) => {
+
+        // window.location.reload(true)
+
         // The signed-in user info.
         const user = result.user;
 
@@ -24,15 +35,24 @@ const Login = () => {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
 
+        console.log(credential, user);
+
+        setCookie("at", accessToken,false);
+        setCookie("user", user,false);
+
         // IdP data available using getAdditionalUserInfo(result)
         // ...
+                dispatch(setIsLoading(false));
+
       })
       .catch((error) => {
+        dispatch(setIsLoading(false));
+
         // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        const errorCode = error?.code;
+        const errorMessage = error?.message;
         // The email of the user's account used.
-        const email = error.customData.email;
+        const email = error?.customData?.email || 'email not provided';
         // The AuthCredential type that was used.
         const credential = FacebookAuthProvider.credentialFromError(error);
 
@@ -43,7 +63,7 @@ const Login = () => {
   }
 
   return (
-    <div className="   min-w-[350px] w-auto min-h-full flex flex-col gap-[10px] ">
+    <div className="    min-w-[350px] w-auto min-h-full flex flex-col gap-[10px] ">
       <div className=" min-w-full min-h-[410px] h-auto border border-t-[#363636] border-[#dbdbdb] py-[10px] justify-start items-center flex gap-[12px] flex-col ">
         <div className=" mt-[36px] ">
           <Instagram width="175px" height="51px" />
@@ -53,7 +73,7 @@ const Login = () => {
           <form className=" px-[40px] py-[24px] min-w-full h-auto gap-[6px] flex-col flex justify-start items-center ">
             {/* Email  */}
             <div className="  min-h-[38px] h-[38px] min-w-full border   border-[#dbdbdb] rounded-[3px] ">
-              <div className=" min-w-full h-full relative   " htmlFor="">
+              <div className=" min-w-full h-full relative    " htmlFor="">
                 <span
                   style={{
                     position:
@@ -68,7 +88,7 @@ const Login = () => {
                 </span>
                 <input
                   required
-                  className=" active:border-none border-none active:outline-0 outline-0  py-2 absolute min-h-full min-w-full cursor-text top-0 left-0 px-2 "
+                  className=" active:border-none border-none active:outline-0 outline-0 rounded-md   py-2 absolute h-full w-full cursor-text top-0 left-0 px-2 "
                   value={formVal.email}
                   onChange={(e) =>
                     setFormVal({ ...formVal, email: e.target.value })
@@ -99,7 +119,7 @@ const Login = () => {
                 </span>
                 <input
                   required
-                  className=" active:border-none border-none active:outline-0 outline-0  py-2 absolute min-h-full min-w-full cursor-text top-0 left-0 px-2 "
+                  className=" active:border-none border-none ring-0 stroke-none rounded-md active:outline-0 outline-0  py-2 absolute h-full w-full cursor-text top-0 left-0 px-2 "
                   value={formVal.password}
                   onChange={(e) =>
                     setFormVal({ ...formVal, password: e.target.value })
@@ -116,7 +136,7 @@ const Login = () => {
                     e.currentTarget.style.color = "#333333";
                   }}
                   onClick={() => setShowPass(!showPass)}
-                  className=" absolute right-0 text-[12px] text-[#333333] transition-all font-semibold mr-[8px] cursor-pointer z-10 "
+                  className=" absolute right-0 text-[12px] hover:opacity-90 text-[#33333389] transition-all font-semibold mr-[8px] cursor-pointer z-10 "
                 >
                   {showPass ? "Hide" : "Show"}
                 </div>

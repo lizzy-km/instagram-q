@@ -35,7 +35,7 @@ export const setTokenToCookie = (name, data, expiredDay = false) => {
 };
 //
 export const getTokenToCookie = (name = false) => {
-  const data = Cookies.getJSON(name || false);
+  const data = Cookies.get(name || false)
 
   const firstTokenToArr = tokenToArr("ဝ", data);
   const firstArrToToken = joinArr("o", firstTokenToArr);
@@ -50,14 +50,14 @@ export const getTokenToCookie = (name = false) => {
 };
 //
 
-export const setCookie = (name, data, expiredDay = false) => {
-  return Cookies.set(name, data, { expires: expiredDay });
+export const setCookie = (name, data={'v':null}, expiredDay = false) => {
+  return Cookies.set(name, JSON.stringify(data), { expires: expiredDay });
 };
 //
 export function getCookie(name = "") {
-  const cookieData = Cookies.getJSON(name || null);
+  const cookieData = Cookies.get(name) || '{"v": "null"}';
 
-  return cookieData || null;
+  return JSON.parse(cookieData) || null;
 }
 //
 export function deleteCookie(name, path = "/") {
