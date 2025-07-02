@@ -12,7 +12,11 @@ import Instagram from "../../components/Logo/Instagram";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../services/slice/AuthSlice";
 import { setCookie, setTokenToCookie } from "../../utils/CookieFun";
-import { generateSessionToken, saveSessionToDb } from "../../hooks/CommonFun";
+import {
+  generateDeviceId,
+  generateSessionToken,
+  saveSessionToDb,
+} from "../../hooks/CommonFun";
 
 const Login = () => {
   const [formVal, setFormVal] = useState({
@@ -85,7 +89,8 @@ const Login = () => {
 
         const userInfo = user?.reloadUserInfo;
         const uid = userInfo?.localId || user.uid;
-        const deviceId = userInfo.localId + userInfo.email;
+        const deviceId = await generateDeviceId(uid, user.email);
+
 
         await saveSessionToDb(sessionToken, uid, deviceId);
 

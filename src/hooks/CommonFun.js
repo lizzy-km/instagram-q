@@ -56,3 +56,20 @@ export async function saveSessionToDb(sessionToken, uid, deviceId) {
     { merge: true }
   );
 }
+
+
+export async function generateDeviceId(uid,email){
+
+  const combinedString = `${uid}::${email}::${navigator.userAgent}`
+
+  const textEncoder = new TextEncoder()
+  const data = textEncoder.encode(combinedString)
+
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const deviceId = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  return deviceId;
+
+
+}
