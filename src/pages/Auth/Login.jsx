@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import "../../css/login.css";
 import FacebookLogo from "../../icons/FacebookLogo";
 import { auth, provider } from "../../config/firebase/FirebaseConfig";
-import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import Instagram from "../../components/Logo/Instagram";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../services/slice/AuthSlice";
 import { setCookie, setTokenToCookie } from "../../utils/CookieFun";
+import { generateSessionToken, saveSessionToDb } from "../../hooks/CommonFun";
 
 const Login = () => {
   const [formVal, setFormVal] = useState({
@@ -20,12 +25,10 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
 
   function siginUpWithFacebook() {
-    
     dispatch(setIsLoading(true));
 
     return signInWithPopup(auth, provider)
       .then((result) => {
-
         // window.location.reload(true)
 
         // The signed-in user info.
@@ -35,15 +38,16 @@ const Login = () => {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
 
-        console.log(credential, user);
+        // generateSessionToken()
 
-        setCookie("at", accessToken,false);
-        setCookie("user", user,false);
+        console.log(credential, result);
+
+        setCookie("at", accessToken, false);
+        setCookie("user", user, false);
 
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-                dispatch(setIsLoading(false));
-
+        dispatch(setIsLoading(false));
       })
       .catch((error) => {
         dispatch(setIsLoading(false));
@@ -52,13 +56,48 @@ const Login = () => {
         const errorCode = error?.code;
         const errorMessage = error?.message;
         // The email of the user's account used.
-        const email = error?.customData?.email || 'email not provided';
+        const email = error?.customData?.email || "email not provided";
         // The AuthCredential type that was used.
         const credential = FacebookAuthProvider.credentialFromError(error);
 
         console.log(credential, email, errorMessage, errorCode);
 
         // ...
+      });
+  }
+
+  async function signInWithEmailAndPass() {
+    dispatch(setIsLoading(true));
+
+    await signInWithEmailAndPassword(auth, formVal.email, formVal.password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+
+        const token = await user.getIdToken();
+
+        const sessionToken = await generateSessionToken(
+          user.uid,
+          user.email,
+          new Date().getTime(),
+          token
+        );
+
+        const userInfo = user?.reloadUserInfo;
+        const uid = userInfo?.localId || user.uid;
+        const deviceId = userInfo.localId + userInfo.email;
+
+        await saveSessionToDb(sessionToken, uid, deviceId);
+
+        setTokenToCookie("session", sessionToken, false);
+
+        dispatch(setIsLoading(false));
+      })
+      .catch((error) => {
+        dispatch(setIsLoading(false));
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(errorCode, errorMessage, error);
       });
   }
 
@@ -145,6 +184,7 @@ const Login = () => {
             {/* Login Button */}
 
             <div
+              onClick={signInWithEmailAndPass}
               style={{
                 backgroundColor:
                   formVal.email?.length > 0 && formVal.password?.length > 0
