@@ -34,7 +34,7 @@ const MainLayout = () => {
 
   const routeName = pathname.slice(1, pathname.length);
 
-  const isinMessagePage = routeName == "message";
+  const isinMessagePage = routeName === "message";
 
   const menuStyle =
     "  transition-all relative justify-between  flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
@@ -55,7 +55,9 @@ const MainLayout = () => {
       {!isMobile && (
         <div
           style={{
-            width: isDrawerOpen || isinMessagePage ? 73 : 245,
+            width: isDrawerOpen || isinMessagePage ? 73 : 335,
+            minWidth: isDrawerOpen || isinMessagePage ? 73 : 335,
+
           }}
           className={menuStyle}
         >
@@ -83,14 +85,14 @@ const MainLayout = () => {
                 }}
                 to={"/"}
                 className={
-                  "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                  "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                 }
               >
                 {/* Icon  */}
                 {routeName.length < 1 ? <HomeFillIcon /> : <HomeOutLineIcon />}
                 {isDrawerOpen ||
                   (!isinMessagePage && (
-                    <p className="  max-1xl:hidden flex ">Home</p>
+                    <p className="  max-1xl:hidden flex menuText ">Home</p>
                   ))}
               </NavLink>
 
@@ -102,13 +104,13 @@ const MainLayout = () => {
                     setIsNotiOpen(false);
                   }}
                   className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
                   {isSearchOpen ? <SearchBold /> : <SearchOutLine />}
                   {isDrawerOpen ||
                     (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Search</p>
+                      <p className="  max-1xl:hidden flex menuText ">Search</p>
                     ))}{" "}
                 </div>
               </div>
@@ -118,7 +120,7 @@ const MainLayout = () => {
                   aria-activedescendant=""
                   to={"/explore"}
                   className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
                   {routeName == "explore" ? (
@@ -128,20 +130,20 @@ const MainLayout = () => {
                   )}
                   {isDrawerOpen ||
                     (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Explore</p>
+                      <p className="  max-1xl:hidden flex menuText ">Explore</p>
                     ))}{" "}
                 </NavLink>
               </div>
               <div className=" transition-colors w-full min-h-[64px] rounded-md py-2  ">
                 <div
                   className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
                   <AddOutLine />
                   {isDrawerOpen ||
                     (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Add post</p>
+                      <p className="  max-1xl:hidden flex menuText ">Add post</p>
                     ))}{" "}
                 </div>
               </div>
@@ -151,13 +153,13 @@ const MainLayout = () => {
                   aria-activedescendant=""
                   to={"/message"}
                   className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
                   {routeName == "message" ? <MessageFill /> : <Message />}
                   {isDrawerOpen ||
                     (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Messages</p>
+                      <p className="  max-1xl:hidden flex menuText ">Messages</p>
                     ))}{" "}
                 </NavLink>
               </div>
@@ -170,13 +172,13 @@ const MainLayout = () => {
                     setIsSearchOpen(false);
                   }}
                   className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
                   {isNotiOpen ? <HeartFill /> : <HeartOutLine />}
                   {isDrawerOpen ||
                     (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Notifications</p>
+                      <p className="  max-1xl:hidden flex menuText ">Notifications</p>
                     ))}{" "}
                 </div>
               </div>
@@ -186,7 +188,7 @@ const MainLayout = () => {
                   aria-activedescendant=""
                   to={"/profile"}
                   className={
-                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:bg-secondary-gray cursor-pointer flex rounded-md  justify-start items-center"
+                    "transition-colors w-full h-full p-3 gap-[16px] text-[16px] hover:!bg-[#dbdbdb57] cursor-pointer flex rounded-md  justify-start items-center"
                   }
                 >
                   <img
@@ -197,7 +199,7 @@ const MainLayout = () => {
                   />
                   {isDrawerOpen ||
                     (!isinMessagePage && (
-                      <p className="  max-1xl:hidden flex ">Profile</p>
+                      <p className="  max-1xl:hidden flex menuText ">Profile</p>
                     ))}{" "}
                 </NavLink>
               </div>
@@ -215,7 +217,7 @@ const MainLayout = () => {
         <section
           style={{
             width: isDrawerOpen ? 400 : 0,
-            left: isDrawerOpen || isinMessagePage ? 73 : 240,
+            left: isDrawerOpen || isinMessagePage ? 73 : 335,
             boxShadow: "10px 0 24px #dbdbdb50 ",
             visibility: isDrawerOpen ? "visible" : "hidden",
             transition: "0.2s",

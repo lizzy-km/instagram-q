@@ -43,11 +43,17 @@
 }
 
 
-.active[aria-activedescendant] {
-    font-weight: 700;
-    background-color: #dbdbdb !important;
+/*.active[aria-activedescendant] {*/
+/*    font-weight: 700;*/
+/*    background-color: #dbdbdb !important;*/
 
-  
+/*  */
+/*}*/
+
+.active {
+    .menuText {
+        font-weight: 600;
+    }
 }
 
 

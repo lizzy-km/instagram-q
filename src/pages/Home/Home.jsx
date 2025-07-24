@@ -20,11 +20,11 @@ const Home = () => {
             <div className=" relative   w-[90px]  flex flex-col min-h-full justify-start items-center min-w-[90px]  ">
               <div className=" w-[88px] min-h-[88px] flex-shrink-0 rounded-full ">
                 <div
-                  className={` p-1  w-full h-full rounded-full bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 `}
+                  className={` p-[3px]  w-full h-full rounded-full bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 `}
                 >
-                  <div className=" w-full h-full p-1 flex justify-center items-center bg-white rounded-full">
+                  <div className=" w-full h-full p-[2px] flex justify-center items-center bg-white rounded-full">
                     <img
-                      className="w-[74px]  h-[74px]  object-cover rounded-full"
+                      className="w-[76px]  h-[76px]  object-cover rounded-full"
                       src={
                         "https://i.pinimg.com/736x/4b/ab/bd/4babbd4c485146ff3c8d1d13bd363fc3.jpg"
                       }
