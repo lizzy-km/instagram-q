@@ -60,7 +60,7 @@ export async function saveSessionToDb(sessionToken, uid, deviceId) {
 
 export async function generateDeviceId(uid,email){
 
-  const combinedString = `${uid}::${email}::${navigator.userAgent}`
+  const combinedString = `${uid}::${email}::${navigator.userAgent}::${Date.now()}`
 
   const textEncoder = new TextEncoder()
   const data = textEncoder.encode(combinedString)
