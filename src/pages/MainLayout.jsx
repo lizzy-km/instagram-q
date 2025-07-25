@@ -40,8 +40,7 @@ const MainLayout = () => {
 
   const isinMessagePage = routeName === "message";
 
-  const menuStyle =
-    "  transition-all relative justify-between   flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
+
 
   function makelogOut (){
     auth.signOut().then(() => {
@@ -65,16 +64,21 @@ const MainLayout = () => {
     }
 
   return (
-    <div className="  flex relative w-full h-full  ">
+    <div style={{
+      paddingLeft: isTablet ?  73 : 335
+    }}
+     className="  pl-0 flex relative w-full h-full  justify-items-start items-start  ">
       {/* SideMenu  */}
-      {!isMobile && (
+      {
+        !isMobile &&
+          (
         <div
           style={{
-            width: isDrawerOpen || isinMessagePage ? 73 : 335,
-            minWidth: isDrawerOpen || isinMessagePage ? 73 : 335,
+            width: isDrawerOpen || isinMessagePage || isTablet ? 73 : 335,
+            minWidth: isDrawerOpen || isinMessagePage || isTablet ? 73 : 335,
 
           }}
-          className={menuStyle}
+          className= "  transition-all left-0 absolute justify-between    flex flex-wrap  h-screen    border-r  border-secondary pt-2 px-[12px] pb-[20px] "
         >
           <div className=" w-full h-full flex flex-col  ">
             {/* Logo  */}
@@ -232,7 +236,7 @@ const MainLayout = () => {
         <section
           style={{
             width: isDrawerOpen ? 400 : 0,
-            left: isDrawerOpen || isinMessagePage ? 73 : 335,
+            left: isDrawerOpen || isinMessagePage || isTablet ? 73 : 335,
             boxShadow: "10px 0 24px #dbdbdb50 ",
             visibility: isDrawerOpen ? "visible" : "hidden",
             transition: "0.2s",
