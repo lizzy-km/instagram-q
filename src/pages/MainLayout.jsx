@@ -20,6 +20,8 @@ import NotificationDrawer from "../components/Notification/Notification";
 import SearchBold from "../icons/SearchBold";
 import SearchOutLine from "../icons/SearchOutLine";
 import SearchDrawer from "../components/Search/SearchDrawer";
+import {useDispatch, useSelector} from "react-redux";
+import {setModalFun, setOpenModal} from "../services/slice/ModalSlice.js";
 
 const MainLayout = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -31,23 +33,36 @@ const MainLayout = () => {
 
   const { pathname } = useLocation();
   const { currentUser } = auth;
+  const dispatch = useDispatch();
+
 
   const routeName = pathname.slice(1, pathname.length);
 
   const isinMessagePage = routeName === "message";
 
   const menuStyle =
-    "  transition-all relative justify-between  flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
+    "  transition-all relative justify-between   flex flex-wrap  h-screen max-1xl:w-[73px]   border-r  border-secondary pt-2 px-[12px] pb-[20px] ";
 
-    function logOut (){
+  function makelogOut (){
     auth.signOut().then(() => {
       // Sign-out successful.
+
+      setOpenModal(false)
       window.location.reload(true);
     }).catch((error) => {
       // An error happened.
+      setOpenModal(false)
       console.error("Error signing out: ", error);
     });
   }
+
+    function logOut (){
+
+      dispatch(setOpenModal(true))
+      dispatch(setModalFun(makelogOut))
+
+
+    }
 
   return (
     <div className="  flex relative w-full h-full  ">
@@ -230,7 +245,7 @@ const MainLayout = () => {
       }
 
       {/* Content */}
-      <section className=" flex justify-start items-start w-full max-h-full overflow-y-auto px-5  ">
+      <section className="  flex justify-start items-start w-full max-h-full overflow-y-auto px-5  ">
         <Outlet />
       </section>
 
