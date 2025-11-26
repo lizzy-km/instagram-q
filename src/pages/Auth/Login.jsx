@@ -109,16 +109,16 @@ const Login = () => {
   }
 
   return (
-    <div className="    min-w-[350px] w-auto min-h-full flex flex-col gap-[10px] ">
-      <div className=" min-w-full min-h-[410px] h-auto border border-t-[#363636] border-[#dbdbdb] py-[10px] justify-start items-center flex gap-[12px] flex-col ">
-        <div className=" mt-[36px] ">
+    <div className="     w-auto min-h-full flex flex-col gap-[10px] ">
+      <div className=" min-w-full  h-auto border rounded border-t-[#363636] border-[#dbdbdb] py-[10px] justify-start items-center flex gap-[12px] flex-col ">
+        {/* <div className=" mt-[36px] ">
           <Instagram width="175px" height="51px" />
-        </div>
+        </div> */}
 
         <div className=" min-w-full  flex flex-col gap-[12px] justify-start items-center ">
           <form className=" px-[40px] py-[24px] min-w-full h-auto gap-[6px] flex-col flex justify-start items-center ">
             {/* Email  */}
-            <div className="  min-h-[38px] h-[38px] min-w-full border   border-[#dbdbdb] rounded-[3px] ">
+            {/* <div className="  min-h-[38px] h-[38px] min-w-full border   border-[#dbdbdb] rounded-[3px] ">
               <div className=" min-w-full h-full relative    " htmlFor="">
                 <span
                   style={{
@@ -144,9 +144,9 @@ const Login = () => {
                   id=""
                 />
               </div>
-            </div>
+            </div> */}
             {/* Password  */}
-            <div className="  min-h-[38px] h-[38px] min-w-full border  border-[#dbdbdb] rounded-[3px] ">
+            {/* <div className="  min-h-[38px] h-[38px] min-w-full border  border-[#dbdbdb] rounded-[3px] ">
               <div
                 className=" min-w-full h-full relative flex justify-between items-center   "
                 htmlFor=""
@@ -187,10 +187,10 @@ const Login = () => {
                   {showPass ? "Hide" : "Show"}
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* Login Button */}
 
-            <div
+            {/* <div
               onClick={signInWithEmailAndPass}
               style={{
                 backgroundColor:
@@ -205,17 +205,17 @@ const Login = () => {
               className=" my-2 h-[32px]  px-[16px] py-[7px] text-[14px]  justify-center items-center flex font-semibold text-white w-full rounded-md  "
             >
               <div>Login</div>
-            </div>
+            </div> */}
 
             {/* Label  */}
 
-            <div className=" mt-[14px] mb-[22px] w-full h-full justify-center items-center ">
+            {/* <div className=" mt-[14px] mb-[22px] w-full h-full justify-center items-center ">
               <div className=" flex justify-center items-center h-full w-auto text-[#737373] ">
                 <div className=" bg-[#dbdbdb] w-full h-[1px] "></div>
                 <p className=" text-[13px] font-bold mx-[18px]  ">OR</p>
                 <div className=" bg-[#dbdbdb] w-full h-[1px] "></div>
               </div>
-            </div>
+            </div> */}
 
             {/* Social  */}
             <div className=" w-full justify-center items-center text-[14px] my-2 h-[20px] flex  ">
@@ -232,19 +232,19 @@ const Login = () => {
               </div>
             </div>
           </form>
-          <div>
+          {/* <div>
             <Link to={"forgot-pass"} className=" font-semibold text-[14px] ">
               Forgot password?{" "}
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
-      <div className=" w-full h-[63px]  border text-[14px] border-t-[#363636] border-[#dbdbdb] gap-1 flex justify-center items-center ">
+      {/* <div className=" w-full h-[63px]  border text-[14px] border-t-[#363636] border-[#dbdbdb] gap-1 flex justify-center items-center ">
         <p>Don't have an account?</p>{" "}
         <Link className="text-[#4150f7] font-semibold  " to={"signup"}>
           Signup
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
