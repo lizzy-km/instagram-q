@@ -37,6 +37,7 @@ const Login = () => {
 
         // The signed-in user info.
         const user = result.user;
+        const profiledata = result._tokenResponse
 
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
@@ -48,6 +49,7 @@ const Login = () => {
 
         setCookie("at", accessToken, false);
         setCookie("user", user, false);
+        setCookie("profileData", profiledata, false);
 
         // IdP data available using getAdditionalUserInfo(result)
         // ...

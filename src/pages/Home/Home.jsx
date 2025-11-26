@@ -1,13 +1,15 @@
 import React from "react";
-import {
-  currentUser,
-  name,
-  settings,
-  updateCurrentUser,
-} from "../../hooks/CommonFun";
 import { NavLink } from "react-router";
+import { getCookie } from "../../utils/CookieFun";
 
 const Home = () => {
+
+  const userData = getCookie("profileData");
+
+  const profileData = userData ? JSON.parse(userData.rawUserInfo) : null;
+
+
+
   return (
     <div className=" flex px-[20px] justify-around items-start w-full min-h-full h-auto ">
       <div className=" max-w-[630px] w-full min-h-full  gap-[24px] h-auto flex flex-col justify-start items-center ">
@@ -26,15 +28,15 @@ const Home = () => {
                     <img
                       className="w-[76px]  h-[76px]  object-cover rounded-full"
                       src={
-                        "https://i.pinimg.com/736x/4b/ab/bd/4babbd4c485146ff3c8d1d13bd363fc3.jpg"
+                        profileData.picture.data.url
                       }
-                      alt={currentUser?.displayName}
+                      alt={profileData?.name}
                     />
                   </div>
                 </div>
               </div>
               <p className=" text-ellipsis   h-auto bottom-0 left-0  w-full max-w-full  text-nowrap overflow-hidden text-[12px] font-normal ">
-                {currentUser?.displayName}
+                {profileData?.name}
               </p>
             </div>
           </NavLink>
